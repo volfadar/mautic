@@ -17,7 +17,12 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#Modify php.ini setings
-
+# Modify php.ini settings
 RUN touch /usr/local/etc/php/conf.d/uploads.ini \
     && echo "memory_limit = 512M;" >> /usr/local/etc/php/conf.d/uploads.ini
+
+# Verify the contents of uploads.ini
+RUN cat /usr/local/etc/php/conf.d/uploads.ini
+
+# Verify PHP configuration
+RUN php -i | grep memory_limit
